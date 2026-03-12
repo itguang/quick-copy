@@ -5,10 +5,11 @@
     "features": [
         {
             "code": "over",
+            "explain": "快速搜索复制粘贴",
             "cmds": [
                 {
                     "type": "over",
-                    "label": "搜索回车复制",
+                    "label": "搜索-复制-粘贴",
                     "exclude": "/\\n/",
                     "minLength": 1,
                     "maxLength": 500
@@ -18,7 +19,7 @@
         {
             "code": "main",
             "cmds": [
-                "搜索回车复制"
+                "搜索回车复制","copy","appid"
             ]
         }
     ]
