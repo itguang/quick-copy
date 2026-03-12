@@ -1,4 +1,4 @@
-# Quick Copy - uTools 快速复制插件
+<h1 align="center">Quick Copy - uTools 快速复制插件</h1>
 
 <div align="center">
 
