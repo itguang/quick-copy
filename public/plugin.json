@@ -1,0 +1,25 @@
+{
+    "main": "index.html",
+    "logo": "logo.png",
+    "preload": "preload.js",
+    "features": [
+        {
+            "code": "over",
+            "cmds": [
+                {
+                    "type": "over",
+                    "label": "搜索回车复制",
+                    "exclude": "/\\n/",
+                    "minLength": 1,
+                    "maxLength": 500
+                }
+            ]
+        },
+        {
+            "code": "main",
+            "cmds": [
+                "搜索回车复制"
+            ]
+        }
+    ]
+}
