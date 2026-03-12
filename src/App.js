@@ -213,8 +213,8 @@ export default function App () {
           } else {
             window.utools.simulateKeyboardTap('v', 'ctrl')
           }
-        }, 50)
-      }, 100)
+        }, 10)
+      }, 50)
     } catch (e) {
       showSnackbar('复制失败', 'error')
     }
