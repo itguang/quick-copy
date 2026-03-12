@@ -163,8 +163,8 @@ export default function App () {
       showSnackbar('已复制到剪贴板')
       // 复制成功后退出插件并自动粘贴
       setTimeout(() => {
-        window.utools.outPlugin()
         utools.hideMainWindow();
+        window.utools.outPlugin()
         setTimeout(() => {
           // 根据平台使用不同的粘贴快捷键
           const isMacOS = window.utools.isMacOS()

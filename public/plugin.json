@@ -19,7 +19,7 @@
         {
             "code": "main",
             "cmds": [
-                "搜索回车复制","copy","appid"
+                "搜索回车复制","appid"
             ]
         }
     ]
