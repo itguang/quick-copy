@@ -202,19 +202,15 @@ export default function App () {
       window.utools.copyText(text)
       showSnackbar('已复制到剪贴板')
       // 复制成功后退出插件并自动粘贴
-      setTimeout(() => {
-        utools.hideMainWindow();
-        window.utools.outPlugin()
-        setTimeout(() => {
-          // 根据平台使用不同的粘贴快捷键
-          const isMacOS = window.utools.isMacOS()
-          if (isMacOS) {
-            window.utools.simulateKeyboardTap('v', 'command')
-          } else {
-            window.utools.simulateKeyboardTap('v', 'ctrl')
-          }
-        }, 10)
-      }, 50)
+      utools.hideMainWindow();
+      window.utools.outPlugin()
+      // 根据平台使用不同的粘贴快捷键
+      const isMacOS = window.utools.isMacOS()
+      if (isMacOS) {
+        window.utools.simulateKeyboardTap('v', 'command')
+      } else {
+        window.utools.simulateKeyboardTap('v', 'ctrl')
+      }
     } catch (e) {
       showSnackbar('复制失败', 'error')
     }
