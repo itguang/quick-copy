@@ -87,7 +87,7 @@ export default function App () {
   useEffect(() => {
     window.utools.onPluginEnter(({ code, type, payload, from }) => {
       if (code === 'main' || code === 'over') {
-        // 设置子输入框
+        // 设置子输入框（默认聚焦，支持继续输入搜索）
         window.utools.setSubInput(({ text }) => {
           setSearchText(text)
         }, '搜索字符串...', true)
@@ -128,7 +128,7 @@ export default function App () {
     if (items.length === 0) {
       return
     }
-    
+
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       const newIndex = Math.min(selectedIndex + 1, items.length - 1)
@@ -146,6 +146,43 @@ export default function App () {
       }
     }
   }
+
+  // 当子输入框聚焦时，监听全局按键并同步列表选择
+  const handleWindowKeyDown = useCallback((e) => {
+    if (items.length === 0 || addDialogOpen || importDialogOpen) return
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setSelectedIndex((prev) => {
+        const current = prev < 0 ? 0 : prev
+        const next = Math.min(current + 1, items.length - 1)
+        setTimeout(() => scrollToIndex(next), 0)
+        return next
+      })
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setSelectedIndex((prev) => {
+        const current = prev < 0 ? 0 : prev
+        const next = Math.max(current - 1, 0)
+        setTimeout(() => scrollToIndex(next), 0)
+        return next
+      })
+    } else if (e.key === 'Enter') {
+      e.preventDefault()
+      const index = selectedIndex < 0 ? 0 : selectedIndex
+      if (items[index]) {
+        handleCopy(items[index])
+      }
+    }
+  }, [items, selectedIndex, addDialogOpen, importDialogOpen])
+
+  // 全局按键兜底：子输入框聚焦时也支持上下选择与回车复制
+  useEffect(() => {
+    window.addEventListener('keydown', handleWindowKeyDown, true)
+    return () => {
+      window.removeEventListener('keydown', handleWindowKeyDown, true)
+    }
+  }, [handleWindowKeyDown])
 
   const scrollToIndex = (index) => {
     if (listRef.current) {
