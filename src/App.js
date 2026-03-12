@@ -86,15 +86,18 @@ export default function App () {
   // 初始化
   useEffect(() => {
     window.utools.onPluginEnter(({ code, type, payload, from }) => {
-      if (code === 'main') {
+      if (code === 'main' || code === 'over') {
         // 设置子输入框
         window.utools.setSubInput(({ text }) => {
           setSearchText(text)
         }, '搜索字符串...', true)
 
-        // 如果有传入文本，进行搜索
-        if (payload && typeof payload === 'string' && payload.trim()) {
-          setSearchText(payload.trim())
+        // 从入口动作中提取搜索词，并同步到状态与子输入框
+        const initialText = (typeof payload === 'string' ? payload : '').trim()
+        if (initialText) {
+          setSearchText(initialText)
+          window.utools.setSubInputValue(initialText)
+          window.utools.subInputSelect()
         }
       } else if (code === 'import') {
         setImportDialogOpen(true)
